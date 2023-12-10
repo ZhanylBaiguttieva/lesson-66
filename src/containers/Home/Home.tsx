@@ -9,6 +9,9 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({meats, deleteMeat}) => {
+  const total = meats.reduce((sum, meat) => {
+    return sum + parseFloat(meat.calories);
+  }, 0);
 
   return (
     <>
@@ -17,6 +20,7 @@ const Home: React.FC<Props> = ({meats, deleteMeat}) => {
       </div>
       <div>
         <h4>Meats</h4>
+        <div>Total calories:{total} kcal</div>
         {meats.map((meat) => (
           <MeatItem
             key={meat.id}
