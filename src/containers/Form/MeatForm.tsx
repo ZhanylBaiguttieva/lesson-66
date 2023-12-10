@@ -4,10 +4,7 @@ import axiosApi from '../../axiosApi';
 import ButtonSpinner from '../Spinner/ButtonSpinner';
 import {useNavigate, useParams} from 'react-router-dom';
 
-interface Props {
-  isEdit?: boolean;
-}
-const MeatForm: React.FC<Props> = ({isEdit = false}) => {
+const MeatForm: React.FC = () => {
   const [newMeat, setNewMeat] = useState<ApiMeat>({
     time: '',
     description: '',
@@ -30,10 +27,10 @@ const MeatForm: React.FC<Props> = ({isEdit = false}) => {
     try {
       if(meatId === undefined) {
         await axiosApi.post('meats.json', newMeat);
+        navigate('/');
       } else {
         await axiosApi.put('meats/' + meatId + '.json', newMeat);
       }
-      navigate('/');
     } finally {
       setCreating(false);
     }
@@ -85,7 +82,7 @@ const MeatForm: React.FC<Props> = ({isEdit = false}) => {
       </div>
       <button type="submit" className="btn btn-primary mt-2" disabled={creating}>
         {creating && <ButtonSpinner/>}
-        {isEdit ? 'Edit' : 'Update'}
+        Save
       </button>
     </form>
   );
